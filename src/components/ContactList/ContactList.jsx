@@ -1,6 +1,8 @@
 import { Delete, List, Item } from './ContactList.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from '../../redux/actions';
+import { GiFactory, GiSmartphone, GiFamilyHouse } from 'react-icons/gi';
+import { TiDelete } from 'react-icons/ti';
 
 const ContactList = () => {
   const dispatch = useDispatch();
@@ -24,11 +26,17 @@ const ContactList = () => {
               handleDelete(id);
             }}
           >
-            ❌
+            <TiDelete
+              style={{
+                color: 'tomato',
+                fontSize: '36px',
+                marginBottom: '-4px',
+              }}
+            />
           </Delete>
-          {type === 'mobile' && <span>📱 </span>}
-          {type === 'work' && <span>🏭 </span>}
-          {type === 'home' && <span>🏠 </span>}
+          {type === 'mobile' && <GiSmartphone />}
+          {type === 'work' && <GiFactory />}
+          {type === 'home' && <GiFamilyHouse />}
           {name}: {number}
         </Item>
       ))}

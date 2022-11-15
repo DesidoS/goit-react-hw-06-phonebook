@@ -17,6 +17,8 @@ import {
 } from 'https://cdn.skypack.dev/react-flip-toolkit@7.0.13';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../redux/actions';
+import { GiFactory, GiSmartphone, GiFamilyHouse } from 'react-icons/gi';
+import { TiDelete } from 'react-icons/ti';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -98,7 +100,7 @@ const ContactForm = () => {
                 </Label>
                 <Type>
                   <TypeLabel>
-                    <p>📱</p>
+                    <GiSmartphone />
                     <Radio
                       type="radio"
                       checked={type === 'mobile'}
@@ -108,7 +110,7 @@ const ContactForm = () => {
                     />
                   </TypeLabel>
                   <TypeLabel>
-                    <p>🏭</p>
+                    <GiFactory />
                     <Radio
                       type="radio"
                       checked={type === 'work'}
@@ -118,7 +120,7 @@ const ContactForm = () => {
                     />
                   </TypeLabel>
                   <TypeLabel>
-                    <p>🏠</p>
+                    <GiFamilyHouse />
                     <Radio
                       type="radio"
                       checked={type === 'home'}
@@ -130,7 +132,13 @@ const ContactForm = () => {
                 </Type>
                 <Add type="submit">Add contact</Add>
                 <OpenForm type="button" onClick={() => setIsOpen(false)}>
-                  ❌
+                  <TiDelete
+                    style={{
+                      color: 'tomato',
+                      fontSize: '36px',
+                      marginBottom: '-4px',
+                    }}
+                  />
                 </OpenForm>
               </Form>
             </div>
@@ -139,7 +147,7 @@ const ContactForm = () => {
           <Flipped flipId="wrapper">
             <div ref={ref} onClick={toggleState}>
               <Flipped flipId="action">
-                <OpenForm>➕</OpenForm>
+                <OpenForm>+</OpenForm>
               </Flipped>
             </div>
           </Flipped>
