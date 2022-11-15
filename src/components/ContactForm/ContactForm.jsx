@@ -11,10 +11,7 @@ import {
   Radio,
   OpenForm,
 } from './ContactForm.styled';
-import {
-  Flipper,
-  Flipped,
-} from 'https://cdn.skypack.dev/react-flip-toolkit@7.0.13';
+import { Flipper, Flipped } from 'react-flip-toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../redux/actions';
 import { GiFactory, GiSmartphone, GiFamilyHouse } from 'react-icons/gi';
