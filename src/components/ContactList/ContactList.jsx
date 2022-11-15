@@ -1,45 +1,38 @@
-import PropTypes from 'prop-types';
-import { TiDelete } from 'react-icons/ti';
-import { Delete } from './ContactList.styled';
-import { GiFactory, GiSmartphone, GiFamilyHouse } from 'react-icons/gi';
+import { Delete, List, Item } from './ContactList.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteContact } from '../../redux/actions';
 
-const ContactList = ({ contacts, onDeleteContact }) => {
+const ContactList = () => {
+  const dispatch = useDispatch();
+  const state = useSelector(state => state);
+  const handleDelete = id => dispatch(deleteContact(id));
+  const getVisibleContacts = () => {
+    if (!state.filter) return state.contacts;
+    return state.contacts.filter(contact =>
+      contact.name.toLowerCase().includes(state.filter?.toLowerCase())
+    );
+  };
+
+  const visibleContacts = getVisibleContacts();
+
   return (
-    <ul>
-      {contacts.map(({ id, contactName, number, type }) => (
-        <li key={id}>
+    <List>
+      {visibleContacts.map(({ id, name, number, type }) => (
+        <Item key={id}>
           <Delete
             onClick={() => {
-              onDeleteContact(id);
+              handleDelete(id);
             }}
           >
-            <TiDelete
-              style={{
-                color: 'tomato',
-                fontSize: '36px',
-                marginBottom: '-4px',
-              }}
-            />
+            ❌
           </Delete>
-          {contactName}: {number} :{type === 'mobile' ? <GiSmartphone /> : null}
-          {type === 'work' ? <GiFactory /> : null}
-          {type === 'home' ? <GiFamilyHouse /> : null}
-        </li>
+          {type === 'mobile' && <span>📱 </span>}
+          {type === 'work' && <span>🏭 </span>}
+          {type === 'home' && <span>🏠 </span>}
+          {name}: {number}
+        </Item>
       ))}
-    </ul>
+    </List>
   );
 };
-
 export default ContactList;
-
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      contactName: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-    })
-  ),
-  onDeleteContact: PropTypes.func.isRequired,
-};

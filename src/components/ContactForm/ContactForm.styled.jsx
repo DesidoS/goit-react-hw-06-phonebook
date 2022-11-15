@@ -42,6 +42,17 @@ export const Add = styled.button`
   border: none;
   padding: 10px;
   cursor: pointer;
+  margin-bottom: 10px;
+  &:hover {
+    background-color: darkgray;
+  }
+`;
+export const OpenForm = styled.button`
+  font-size: 24px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background-color: inherit;
   &:hover {
     background-color: darkgray;
   }

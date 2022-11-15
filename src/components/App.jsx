@@ -1,60 +1,21 @@
-import { useState, useEffect } from 'react';
-import { Notify } from 'notiflix';
-// conponents //
+import { useSelector } from 'react-redux';
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
 import Section from './Section';
-// styles //
 import { Container } from './App.styled';
 
 const App = () => {
-  const [contacts, setConacts] = useState(
-    JSON.parse(localStorage.getItem('contacts')) ?? []
-  );
-  const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
-
-  const addContact = data => {
-    setConacts(contacts => [data, ...contacts]);
-    Notify.success(`${data.contactName} has been added to contacts.`);
-  };
-
-  const onFilterChange = e => {
-    setFilter(e.currentTarget.value);
-  };
-
-  const deleteContact = contactId => {
-    setConacts(contacts => [...contacts.filter(({ id }) => id !== contactId)]);
-  };
-
-  const getVisibleContacts = () => {
-    const normalizedFilter = filter.toLowerCase();
-    if (contacts.length > 1) {
-      return contacts.filter(contact =>
-        contact.contactName.toLowerCase().includes(normalizedFilter)
-      );
-    }
-    return;
-  };
-
-  const listContacts = getVisibleContacts() || contacts;
-
+  const contacts = useSelector(state => state.contacts);
   return (
     <Container>
-      <Section title="Phonebook">
-        <ContactForm names={contacts} addContact={addContact} />
+      <Section title="" header="Phonebook">
+        <ContactForm />
       </Section>
       {contacts.length > 0 && (
-        <Section title="Contacts">
-          <Filter filter={filter} onFilterChange={onFilterChange} />
-          <ContactList
-            contacts={listContacts}
-            onDeleteContact={deleteContact}
-          />
+        <Section header="" title="Contacts">
+          <Filter />
+          <ContactList />
         </Section>
       )}
     </Container>

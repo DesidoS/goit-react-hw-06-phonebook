@@ -1,18 +1,19 @@
-import PropTypes from 'prop-types';
 import { Label, Field } from './Filter.styled';
+import { useDispatch } from 'react-redux';
+import { setStatusFilter } from '../../redux/actions';
 
-const Filter = ({ filter, onFilterChange }) => {
+const Filter = () => {
+  const dispatch = useDispatch();
+  const handleFilterChange = e => {
+    dispatch(setStatusFilter(e.currentTarget.value));
+  };
+
   return (
     <Label>
       Find contact by name
-      <Field type="name" required value={filter} onChange={onFilterChange} />
+      <Field type="name" required onChange={handleFilterChange} />
     </Label>
   );
 };
 
 export default Filter;
-
-Filter.propTypes = {
-  filter: PropTypes.string.isRequired,
-  onFilterChange: PropTypes.func.isRequired,
-};
