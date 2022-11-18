@@ -13,7 +13,7 @@ import {
 } from './ContactForm.styled';
 import { Flipper, Flipped } from 'react-flip-toolkit';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../redux/actions';
+import { addContact } from '../../redux/contactsSlice';
 import { GiFactory, GiSmartphone, GiFamilyHouse } from 'react-icons/gi';
 import { TiDelete } from 'react-icons/ti';
 
